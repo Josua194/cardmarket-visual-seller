@@ -108,7 +108,7 @@ function transformarTablaEnCarrusel() {
   function renderCard(index) {
     // Si ya no quedan artículos, ocultar el carrusel o mostrar un mensaje
     if (items.length === 0) {
-      carouselContainer.innerHTML = `<div class="alert alert-info mb-0">No quedan más cartas disponibles.</div>`;
+      carouselContainer.innerHTML = `<div class="alert alert-info mb-0">No cards left.</div>`;
       return;
     }
 
