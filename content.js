@@ -47,7 +47,8 @@ function transformarTablaEnCarrusel() {
     // Stock disponible
     const stock = row.querySelector('.item-count')?.textContent.trim() || '0';
     // Carrito
-    const cartForm = row.querySelector('.actions-container')?.innerHTML || '';
+    // Guardar la referencia al elemento DOM real
+    const cartForm = row.querySelector('.actions-container');
 
     // Expansión
     const expansionEl = row.querySelector('a.expansion-symbol');
@@ -134,7 +135,7 @@ function transformarTablaEnCarrusel() {
           <p class="fs-4 fw-bold text-success my-2">${item.price}</p>
           <p class="text-muted">Disponibles: <strong>${item.stock}</strong></p>
 
-          <div class="mt-3 action-box">${item.cartForm}</div>
+          <div class="mt-3 action-box" id="cart-container-placeholder"></div>
 
           <div class="seller-box d-flex align-items-center mt-3">
             <div id="seller-scan-container" class="me-2"></div>
@@ -143,6 +144,13 @@ function transformarTablaEnCarrusel() {
         </div>
       </div>
     `;
+
+    if (item.cartForm) {
+      const cartPlaceholder = carouselContainer.querySelector('#cart-container-placeholder');
+      if (cartPlaceholder) {
+        cartPlaceholder.appendChild(item.cartForm);
+      }
+    }
 
     if (item.cameraAnchorEl) {
       const scanContainer = carouselContainer.querySelector('#seller-scan-container');
