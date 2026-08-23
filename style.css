@@ -1,0 +1,93 @@
+/* Contenedor principal del carrusel */
+#custom-card-carousel {
+  background-color: var(--bs-body-bg, #ffffff);
+  color: var(--bs-body-color, #212529);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+/* Imagen de la carta con ajuste proporciones */
+#custom-card-carousel img {
+  object-fit: contain;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+  transition: transform 0.2s ease;
+}
+
+#custom-card-carousel img:hover {
+  transform: scale(1.03);
+}
+
+/* Ajustes para la caja de acciones (selector de cantidad y carrito) */
+#custom-card-carousel .action-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#custom-card-carousel .action-box form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botones de navegación del carrusel */
+#custom-card-carousel button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Fila de metadatos: expansión, rareza, condición, idioma */
+#custom-card-carousel .meta-row {
+  row-gap: 6px;
+}
+
+#custom-card-carousel .meta-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  padding: 2px 8px;
+  border-radius: 0.35rem;
+  background-color: rgba(0, 0, 0, 0.05);
+  line-height: 1.2;
+}
+
+/* Los iconos clonados (svg, span con sprite) no deben heredar filtros/hover de .img */
+#custom-card-carousel .meta-badge svg,
+#custom-card-carousel .meta-badge span {
+  filter: none;
+  transform: none;
+}
+
+#custom-card-carousel .meta-label {
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+#custom-card-carousel .condition-badge {
+  font-size: 0.8rem;
+  padding: 2px 8px;
+}
+
+/* Caja de información del vendedor: foto + comentario */
+#custom-card-carousel .seller-box {
+  gap: 8px;
+  border-top: 1px dashed rgba(0, 0, 0, 0.1);
+  padding-top: 10px;
+}
+
+#custom-card-carousel .seller-avatar {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  filter: none;
+}
+
+#custom-card-carousel .seller-comment {
+  font-size: 0.9rem;
+  color: var(--bs-secondary-color, #6c757d);
+}
