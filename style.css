@@ -67,7 +67,49 @@
 
 #custom-card-carousel .condition-badge {
   font-size: 0.8rem;
-  padding: 2px 8px;
+  padding: 4px 10px; /* Un poco más de margen interno para que respire el texto */
+  border-radius: 12px; /* Borde redondeado (estilo píldora) */
+  color: #ffffff; /* Letra blanca por defecto */
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Mint (MT) */
+#custom-card-carousel .cond-mt {
+  background-color: #17A2B8;
+}
+
+/* Near Mint (NM) */
+#custom-card-carousel .cond-nm {
+  background-color: #3CAF56;
+}
+
+/* Excellent (EX) */
+#custom-card-carousel .cond-ex {
+  background-color: #82891E;
+}
+
+/* Good (GD) - Texto oscuro por fondo claro */
+#custom-card-carousel .cond-gd {
+  background-color: #FFC107;
+  color: #212529; 
+}
+
+/* Light Played (LP) - Texto oscuro por contraste */
+#custom-card-carousel .cond-lp {
+  background-color: #FD8B2B;
+  color: #212529;
+}
+
+/* Played (PL) */
+#custom-card-carousel .cond-pl {
+  background-color: #E56874;
+}
+
+/* Poor (PO) */
+#custom-card-carousel .cond-po {
+  background-color: #DC3545;
 }
 
 /* Caja de información del vendedor: foto + comentario */

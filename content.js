@@ -1,8 +1,8 @@
 function transformarTablaEnCarrusel() {
-  const table = document.getElementById('UserOffersTable');
+  const table = document.getElementById('UserOffersTable'); //[cite: 2]
   if (!table) return;
 
-  // evitar ataques XSS
+  // Evitar ataques XSS
   const escapeHtml = (str) => {
     if (!str) return '';
     return str.replace(/[&<>"']/g, (c) => ({
@@ -10,8 +10,6 @@ function transformarTablaEnCarrusel() {
     }[c]));
   };
 
-  
-  
   const getTooltipText = (el) => {
     if (!el) return '';
     return el.getAttribute('data-bs-original-title')
@@ -21,12 +19,12 @@ function transformarTablaEnCarrusel() {
   };
 
   // 1. Extraer la información de cada fila de la tabla
-  const rows = table.querySelectorAll('.article-row');
+  const rows = table.querySelectorAll('.article-row'); //[cite: 2]
   const items = [];
 
   rows.forEach(row => {
-    // Imagen de la carta (scan) desde el tooltip del icono de la cámara
-    const cameraIcon = row.querySelector('.thumbnail-icon');
+    // Imagen de la carta (scan)
+    const cameraIcon = row.querySelector('.thumbnail-icon'); //[cite: 2]
     let imgSrc = '';
     if (cameraIcon) {
       const tooltipAttr = cameraIcon.getAttribute('data-bs-title')
@@ -37,47 +35,46 @@ function transformarTablaEnCarrusel() {
       if (match) imgSrc = match[1];
     }
 
-    // Carta: nombre, enlace y foto (si la tiene)
-    const nameAnchor = row.querySelector('.col-seller a');
-    const name = nameAnchor ? nameAnchor.textContent.trim() : 'Carta sin nombre';
-    const link = nameAnchor ? nameAnchor.href : '#';
+    // Carta: nombre, enlace
+    const nameAnchor = row.querySelector('.col-seller a'); //[cite: 2]
+    const name = nameAnchor ? nameAnchor.textContent.trim() : 'Carta sin nombre'; //[cite: 2]
+    const link = nameAnchor ? nameAnchor.href : '#'; //[cite: 2]
 
-    // Precio
-    const price = row.querySelector('.color-primary')?.textContent.trim() || '';
-    // Stock disponible
-    const stock = row.querySelector('.item-count')?.textContent.trim() || '0';
-    // Carrito
-    // Guardar la referencia al elemento DOM real
-    const cartForm = row.querySelector('.actions-container');
+    // Precio y Stock
+    const price = row.querySelector('.color-primary')?.textContent.trim() || ''; //[cite: 2]
+    const stock = row.querySelector('.item-count')?.textContent.trim() || '0'; //[cite: 2]
+
+    // Carrito: Referencia al elemento DOM real
+    const cartForm = row.querySelector('.actions-container'); //[cite: 2]
 
     // Expansión
-    const expansionEl = row.querySelector('a.expansion-symbol');
-    const expansionLink = expansionEl ? expansionEl.href : '';
-    const expansionName = getTooltipText(expansionEl);
-    const expansionIcon = expansionEl ? expansionEl.innerHTML : '';
+    const expansionEl = row.querySelector('a.expansion-symbol'); //[cite: 2]
+    const expansionLink = expansionEl ? expansionEl.href : ''; //[cite: 2]
+    const expansionName = getTooltipText(expansionEl); //[cite: 2]
+    const expansionIcon = expansionEl ? expansionEl.innerHTML : ''; //[cite: 2]
 
-    // Rareza (icono svg)
-    const rarityEl = row.querySelector('svg[aria-label], svg[data-bs-original-title]');
-    const rarityName = getTooltipText(rarityEl);
-    const rarityIcon = rarityEl ? rarityEl.outerHTML : '';
+    // Rareza
+    const rarityEl = row.querySelector('svg[aria-label], svg[data-bs-original-title]'); //[cite: 2]
+    const rarityName = getTooltipText(rarityEl); //[cite: 2]
+    const rarityIcon = rarityEl ? rarityEl.outerHTML : ''; //[cite: 2]
 
     // Condición de la carta
-    const conditionEl = row.querySelector('a.article-condition');
-    const conditionLink = conditionEl ? conditionEl.href : '';
-    const conditionName = getTooltipText(conditionEl);
-    const conditionBadge = conditionEl ? conditionEl.textContent.trim() : '';
+    const conditionEl = row.querySelector('a.article-condition'); //[cite: 2]
+    const conditionLink = conditionEl ? conditionEl.href : ''; //[cite: 2]
+    const conditionName = getTooltipText(conditionEl); //[cite: 2]
+    const conditionBadge = conditionEl ? conditionEl.textContent.trim() : ''; //[cite: 2]
 
     // Idioma
-    const languageEl = row.querySelector('span.icon[style*="background-image"]');
-    const languageName = getTooltipText(languageEl);
-    const languageIcon = languageEl ? languageEl.outerHTML : '';
+    const languageEl = row.querySelector('span.icon[style*="background-image"]'); //[cite: 2]
+    const languageName = getTooltipText(languageEl); //[cite: 2]
+    const languageIcon = languageEl ? languageEl.outerHTML : ''; //[cite: 2]
 
-    // Foto Subida por el vendedor (si la tiene)
-    const cameraAnchorEl = row.querySelector('a:has(.fonticon-camera)');
+    // Foto Subida por el vendedor
+    const cameraAnchorEl = row.querySelector('a:has(.fonticon-camera)'); //[cite: 2]
 
-    // Comentario / información que da el vendedor
-    const commentEl = row.querySelector('.product-comments [data-bs-original-title], .product-comments span');
-    const sellerComment = getTooltipText(commentEl) || commentEl?.textContent.trim() || '';
+    // Comentario / información del vendedor
+    const commentEl = row.querySelector('.product-comments [data-bs-original-title], .product-comments span'); //[cite: 2]
+    const sellerComment = getTooltipText(commentEl) || commentEl?.textContent.trim() || ''; //[cite: 2]
 
     items.push({
       name, link, imgSrc, price, stock, cartForm,
@@ -89,12 +86,11 @@ function transformarTablaEnCarrusel() {
     });
   });
 
-  if (items.length === 0) return;
+  if (items.length === 0) return; //[cite: 2]
 
-  // 2. Precargar todas las imágenes de la página (cartas + fotos de vendedor)
-  // para que el navegador las tenga en caché y el carrusel no parpadee al navegar.
-  const preloadedImages = [];
-  items.forEach(item => {
+  // 2. Precargar todas las imágenes de la página
+  const preloadedImages = []; //[cite: 2]
+  items.forEach(item => { //[cite: 2]
     if (item.imgSrc) {
       const img = new Image();
       img.src = item.imgSrc;
@@ -103,20 +99,25 @@ function transformarTablaEnCarrusel() {
   });
 
   // 3. Crear la estructura del Carrusel
-  let currentIndex = 0;
-  const carouselContainer = document.createElement('div');
-  carouselContainer.id = 'custom-card-carousel';
-  carouselContainer.className = 'card p-4 my-3 text-center border rounded shadow-sm';
-  // Mantener referencia a las imágenes precargadas para que no se pierdan (GC)
-  carouselContainer._preloadedImages = preloadedImages;
+  let currentIndex = 0; //[cite: 2]
+  const carouselContainer = document.createElement('div'); //[cite: 2]
+  carouselContainer.id = 'custom-card-carousel'; //[cite: 2]
+  carouselContainer.className = 'card p-4 my-3 text-center border rounded shadow-sm'; //[cite: 2]
+  carouselContainer._preloadedImages = preloadedImages; //[cite: 2]
 
   function renderCard(index) {
+    // Si ya no quedan artículos, ocultar el carrusel o mostrar un mensaje
+    if (items.length === 0) {
+      carouselContainer.innerHTML = `<div class="alert alert-info mb-0">No quedan más cartas disponibles.</div>`;
+      return;
+    }
+
     const item = items[index];
     carouselContainer.innerHTML = `
       <div class="d-flex align-items-center justify-content-between mb-3">
-        <button id="carousel-prev" class="btn btn-outline-primary btn-lg" ${index === 0 ? 'disabled' : ''}>‹ Anterior</button>
-        <span class="badge bg-secondary fs-6">${index + 1} / ${items.length}</span>
-        <button id="carousel-next" class="btn btn-outline-primary btn-lg" ${index === items.length - 1 ? 'disabled' : ''}>Siguiente ›</button>
+        <button id="carousel-prev" class="btn btn-outline-primary btn-lg" ${index === 0 ? 'disabled' : ''}>‹ Back</button>
+        <span class="badge carousel-counter fs-6">${index + 1} / ${items.length}</span>
+        <button id="carousel-next" class="btn btn-outline-primary btn-lg" ${index === items.length - 1 ? 'disabled' : ''}>Next ›</button>
       </div>
       <div class="row align-items-center">
         <div class="col-md-5">
@@ -128,12 +129,12 @@ function transformarTablaEnCarrusel() {
           <div class="d-flex flex-wrap align-items-center gap-2 my-2 meta-row">
             ${item.expansionIcon ? `<a href="${item.expansionLink}" target="_blank" class="meta-badge" title="${escapeHtml(item.expansionName)}">${item.expansionIcon}<span class="meta-label">${escapeHtml(item.expansionName)}</span></a>` : ''}
             ${item.rarityIcon ? `<span class="meta-badge" title="${escapeHtml(item.rarityName)}">${item.rarityIcon}<span class="meta-label">${escapeHtml(item.rarityName)}</span></span>` : ''}
-            ${item.conditionBadge ? `<a href="${escapeHtml(item.conditionLink)}" target="_blank" rel="noopener noreferrer"><span class="badge condition-badge" title="${escapeHtml(item.conditionName)}">${escapeHtml(item.conditionBadge)}</span></a>` : ''}
+            ${item.conditionBadge ? `<a href="${escapeHtml(item.conditionLink)}" target="_blank" rel="noopener noreferrer"><span class="badge condition-badge cond-${escapeHtml(item.conditionBadge).toLowerCase()}" title="${escapeHtml(item.conditionName)}">${escapeHtml(item.conditionBadge)}</span></a>` : ''}
             ${item.languageIcon ? `<span class="meta-badge" title="${escapeHtml(item.languageName)}">${item.languageIcon}</span>` : ''}
           </div>
 
           <p class="fs-4 fw-bold text-success my-2">${item.price}</p>
-          <p class="text-muted">Disponibles: <strong>${item.stock}</strong></p>
+          <p class="text-muted">Stock: <strong>${item.stock}</strong></p>
 
           <div class="mt-3 action-box" id="cart-container-placeholder"></div>
 
@@ -143,48 +144,66 @@ function transformarTablaEnCarrusel() {
           </div>
         </div>
       </div>
-    `;
+    `; //[cite: 2]
 
     if (item.cartForm) {
-      const cartPlaceholder = carouselContainer.querySelector('#cart-container-placeholder');
+      const cartPlaceholder = carouselContainer.querySelector('#cart-container-placeholder'); //[cite: 2]
       if (cartPlaceholder) {
-        cartPlaceholder.appendChild(item.cartForm);
+        cartPlaceholder.appendChild(item.cartForm); //[cite: 2]
+
+        // --- SOLUCIÓN DEL BUG ---
+        // Escuchamos el evento submit/click para eliminar el artículo del carrusel tras comprarlo
+        const form = item.cartForm.querySelector('form');
+        if (form && !form.dataset.listenerAdded) {
+          form.dataset.listenerAdded = 'true';
+          form.addEventListener('submit', () => {
+            // Se elimina esta carta del listado
+            items.splice(index, 1);
+            
+            // Ajustar el índice si era la última carta disponible
+            if (currentIndex >= items.length) {
+              currentIndex = Math.max(0, items.length - 1);
+            }
+            
+            // Renderizar la carta que queda en esa posición (o mensaje de vacío)
+            renderCard(currentIndex);
+          });
+        }
       }
     }
 
     if (item.cameraAnchorEl) {
-      const scanContainer = carouselContainer.querySelector('#seller-scan-container');
+      const scanContainer = carouselContainer.querySelector('#seller-scan-container'); //[cite: 2]
       if (scanContainer) {
-        // Usamos cloneNode(true) para no destruir el original en caso de volver atrás en el carrusel
-        scanContainer.appendChild(item.cameraAnchorEl.cloneNode(true));
+        scanContainer.appendChild(item.cameraAnchorEl.cloneNode(true)); //[cite: 2]
       }
     }
 
     // Asignar los eventos de navegación entre las cartas extraídas
-    carouselContainer.querySelector('#carousel-prev')?.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        renderCard(currentIndex);
+    carouselContainer.querySelector('#carousel-prev')?.addEventListener('click', () => { //[cite: 2]
+      if (currentIndex > 0) { //[cite: 2]
+        currentIndex--; //[cite: 2]
+        renderCard(currentIndex); //[cite: 2]
       }
     });
 
-    carouselContainer.querySelector('#carousel-next')?.addEventListener('click', () => {
-      if (currentIndex < items.length - 1) {
-        currentIndex++;
-        renderCard(currentIndex);
+    carouselContainer.querySelector('#carousel-next')?.addEventListener('click', () => { //[cite: 2]
+      if (currentIndex < items.length - 1) { //[cite: 2]
+        currentIndex++; //[cite: 2]
+        renderCard(currentIndex); //[cite: 2]
       }
     });
   }
 
   // 4. Reemplazar la tabla por el Carrusel
-  renderCard(currentIndex);
-  table.parentNode.insertBefore(carouselContainer, table);
-  table.style.display = 'none'; // Mantiene la tabla original oculta en el DOM sin destruirla
+  renderCard(currentIndex); //[cite: 2]
+  table.parentNode.insertBefore(carouselContainer, table); //[cite: 2]
+  table.style.display = 'none'; //[cite: 2]
 }
 
 // Ejecutar la modificación al cargar el DOM
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', transformarTablaEnCarrusel);
+if (document.readyState === 'loading') { //[cite: 2]
+  document.addEventListener('DOMContentLoaded', transformarTablaEnCarrusel); //[cite: 2]
 } else {
-  transformarTablaEnCarrusel();
+  transformarTablaEnCarrusel(); //[cite: 2]
 }
