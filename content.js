@@ -201,9 +201,20 @@ function transformarTablaEnCarrusel() {
   table.style.display = 'none'; //[cite: 2]
 }
 
-// Ejecutar la modificación al cargar el DOM
-if (document.readyState === 'loading') { //[cite: 2]
-  document.addEventListener('DOMContentLoaded', transformarTablaEnCarrusel); //[cite: 2]
+// Función para comprobar la configuración y ejecutar
+function initExtension() {
+  // Comprobamos la memoria de Chrome
+  chrome.storage.local.get('carouselEnabled', (data) => {
+    // Si es distinto de false, significa que está activado (o es la primera vez)
+    if (data.carouselEnabled !== false) {
+      transformarTablaEnCarrusel();
+    }
+  });
+}
+
+// Ejecutar al cargar el DOM
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initExtension);
 } else {
-  transformarTablaEnCarrusel(); //[cite: 2]
+  initExtension();
 }

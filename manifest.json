@@ -3,6 +3,13 @@
   "name": "Cardmarket Carousel Enhancement",
   "version": "1.0",
   "description": "Transforma las vistas previas de Cardmarket en un carrusel",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Configuración del Carrusel"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.cardmarket.com/es/Pokemon/Users/*"],
