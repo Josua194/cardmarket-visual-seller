@@ -41,7 +41,8 @@ function transformarTablaEnCarrusel() {
     const link = nameAnchor ? nameAnchor.href : '#'; //[cite: 2]
 
     // Precio y Stock
-    const price = row.querySelector('.color-primary')?.textContent.trim() || ''; //[cite: 2]
+    const price = row.querySelector('.color-primary.fw-bold')?.textContent.trim() || ''; //[cite: 2]
+    console.log('El Precio es:', price); // Debugging line to check the extracted price
     const stock = row.querySelector('.item-count')?.textContent.trim() || '0'; //[cite: 2]
 
     // Carrito: Referencia al elemento DOM real
