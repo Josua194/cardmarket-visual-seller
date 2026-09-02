@@ -70,6 +70,12 @@ function transformarTablaEnCarrusel() {
     const languageName = getTooltipText(languageEl); //[cite: 2]
     const languageIcon = languageEl ? languageEl.outerHTML : ''; //[cite: 2]
 
+    // Reverse Holo
+
+    const reverseHoloEl = row.querySelector('span.icon.st_SpecialIcon');
+    const reverseHoloIcon = reverseHoloEl ? reverseHoloEl.outerHTML : '';
+    const reverseHoloName = getTooltipText(reverseHoloEl) || 'Reverse Holo';
+
     // Foto Subida por el vendedor
     const cameraAnchorEl = row.querySelector('a:has(.fonticon-camera)'); //[cite: 2]
 
@@ -82,7 +88,7 @@ function transformarTablaEnCarrusel() {
       expansionName, expansionLink, expansionIcon,
       rarityName, rarityIcon,
       conditionLink, conditionName, conditionBadge,
-      languageIcon,
+      languageIcon, reverseHoloName, reverseHoloIcon,
       sellerComment, cameraAnchorEl
     });
   });
@@ -132,6 +138,7 @@ function transformarTablaEnCarrusel() {
             ${item.rarityIcon ? `<span class="meta-badge" title="${escapeHtml(item.rarityName)}">${item.rarityIcon}<span class="meta-label">${escapeHtml(item.rarityName)}</span></span>` : ''}
             ${item.conditionBadge ? `<a href="${escapeHtml(item.conditionLink)}" target="_blank" rel="noopener noreferrer"><span class="badge condition-badge cond-${escapeHtml(item.conditionBadge).toLowerCase()}" title="${escapeHtml(item.conditionName)}">${escapeHtml(item.conditionBadge)}</span></a>` : ''}
             ${item.languageIcon ? `<span class="meta-badge" title="${escapeHtml(item.languageName)}">${item.languageIcon}</span>` : ''}
+            ${item.reverseHoloIcon ? `<span class="meta-badge" title="${escapeHtml(item.reverseHoloName)}">${item.reverseHoloIcon}</span>` : ''}
           </div>
 
           <p class="fs-4 fw-bold text-success my-2">${item.price}</p>
