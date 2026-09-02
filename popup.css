@@ -1,0 +1,91 @@
+body {
+  width: 200px;
+  padding: 15px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* --- Switch estilo toggle --- */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 24px;
+}
+
+/* Bola del switch con forma de Pokéball, hecha solo con gradientes CSS */
+.slider::before {
+  position: absolute;
+  content: "";
+  box-sizing: border-box;
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  border-radius: 50%;
+  border: 1.5px solid #222;
+  transition: 0.3s;
+  background:
+    radial-gradient(circle, #fff 0 3px, #222 3px 4px, transparent 4px 100%),
+    linear-gradient(to bottom, #ee1515 0 47%, #222 47% 53%, #fff 53% 100%);
+}
+
+.switch input:checked + .slider {
+  background-color: #3CAF56;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(22px);
+}
+
+.switch input:focus-visible + .slider {
+  box-shadow: 0 0 0 2px rgba(60, 175, 86, 0.4);
+}
+
+label {
+  cursor: pointer;
+  font-size: 14px;
+}
+
+footer {
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  font-size: 11px;
+  color: #888;
+  text-align: center;
+}
+
+footer a {
+  color: #666;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
